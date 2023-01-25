@@ -12,3 +12,4 @@
 3. Check if the configuration is correct in `migrate.js`
 3. Run the migration script `pnpm run migrate`
 4. There might be some conflicting users, you can ignore those.
+5. Generate the query to fix the `created_at` timestamps and apply it kratos db `pnpm run kratos | pbcopy`

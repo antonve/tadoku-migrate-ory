@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "migrate": "node migrate.js"
+    "migrate": "node migrate.js",
+    "kratos": "node fix_created_at.js"
   },
   "keywords": [],
   "author": "",
