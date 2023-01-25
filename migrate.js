@@ -10,6 +10,8 @@ const client = new Client({
   port: 9090,
 });
 
+const kratosAdminRoot = "http://account.langlog.be/private";
+
 async function main() {
   client.connect();
 
@@ -59,8 +61,15 @@ async function createUser(user) {
     }),
   };
 
-  await fetch("http://account.langlog.be/private/admin/identities", options)
-    .then((response) => response.json())
+  await fetch(`${kratosAdminRoot}/admin/identities`, options)
+    .then((response) => {
+      if (response.status != 201) {
+        throw new Error(
+          `could not create user with email "${user.email}": ${response.statusText}`
+        );
+      }
+      response.json();
+    })
     .then(async (response) => {
       await updateAccount(user, response.id);
       console.log(`Migrated ${user.email}:${response.id}`);
