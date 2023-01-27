@@ -22,7 +22,7 @@ async function main() {
     for (let i = 0; i < res.rows.length; i++) {
       const user = res.rows[i];
       const earliestLog = await client.query(
-        `select min(created_at) at time zone 'utc' as min from logs where user_id = '${user.new_id}' group by user_id`
+        `select min(created_at) at time zone 'utc' as min from old.contest_logs where user_id = '${user.id}' group by user_id`
       );
 
       if (earliestLog.rows.length == 0) {
@@ -30,7 +30,7 @@ async function main() {
       }
 
       console.log(
-        `update identities set created_at = '${earliestLog.rows[0].min.toISOString()}' where id = '${
+        `update data.identities set created_at = '${earliestLog.rows[0].min.toISOString()}' where id = '${
           user.new_id
         }';`
       );
