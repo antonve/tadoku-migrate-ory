@@ -68,7 +68,7 @@ async function createUser(user) {
           `could not create user with email "${user.email}": ${response.statusText}`
         );
       }
-      response.json();
+      return response.json();
     })
     .then(async (response) => {
       await updateAccount(user, response.id);
